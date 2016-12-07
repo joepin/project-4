@@ -6,10 +6,10 @@ const logger     = require('morgan');
 const app = express();
 const port = 3000;
 
-const audioStream = require('./lib/audio-stream.js');
+const stream = require('./stream.js');
 
 app.use(logger('dev'));
 
-app.get('/', audioStream.checkFile, audioStream.getMimeType, audioStream.startStream);
+app.get('/', stream.checkFile, stream.setMimeType, stream.startStream);
 
 app.listen(port, () => console.warn(`Server listening on port 3000!`));
