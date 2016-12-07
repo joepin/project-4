@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "A server app that will be capable of serving media files from anywhere, wrapped in an electron app and built usin React",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "server",
+    "electron",
+    "media",
+    "server"
+  ],
+  "author": "Joey Pinhas",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "fs": "0.0.1-security",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7"
+  }
+}
