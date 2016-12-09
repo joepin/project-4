@@ -39,6 +39,7 @@ function setMimeType(req, res, next) {
   const fileType = checkFileType(res.fullPath);
   if (!fileType.valid) next(new Error('Invalid file type requested.'));
   const mimeType = mime.lookup(res.fullPath);
+  console.log(`path: ${res.fullPath}; mime type: ${mimeType}`)
   res.set({'Content-Type': mimeType});
   res.fileType = fileType.type;
   next();

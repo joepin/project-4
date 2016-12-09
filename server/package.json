@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "A server app that will be capable of serving media files from anywhere, wrapped in an electron app and built usin React",
+  "description": "A server app that will be capable of serving media files from anywhere, wrapped in an electron app and built using React",
   "main": "server.js",
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules",

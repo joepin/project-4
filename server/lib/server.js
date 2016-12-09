@@ -9,6 +9,7 @@ const port = 3000;
 const stream = require('./stream.js');
 
 app.use(logger('dev'));
+app.use(express.static(path.resolve(__dirname, '../dist/')));
 
 app.get('/', stream.checkFile, stream.setMimeType, stream.startStream);
 

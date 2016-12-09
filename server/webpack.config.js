@@ -21,6 +21,7 @@ module.exports = {
     colors: true,
     reasons: true
   },
+  target: 'electron',
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Media Streaming Server',
