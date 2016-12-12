@@ -4,7 +4,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dirPath: '',
+      dirPath: '/Users/joey/code/wdi/projects/project-4/server/files',
       serverPort: 3000,
       buttonText: 'Start Server',
       toggleServer: this.startServer.bind(this),
