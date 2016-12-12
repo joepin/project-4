@@ -58,10 +58,10 @@ app.on('activate', () => {
 // code. You can also put them in separate files and require them here.
 
 const express = require('express');
-const logger = require('morgan');
+// const logger = require('morgan');
 const eapp = express();
 
-eapp.use(logger('dev'));
+// eapp.use(logger('dev'));
 eapp.listen(4000);
 eapp.use(express.static(path.join(__dirname, 'dist')))
 eapp.get('/test', (req, res) => res.json('works'))

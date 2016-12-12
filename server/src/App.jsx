@@ -5,44 +5,57 @@ class App extends Component {
     super(props);
     this.state = {
       dirPath: '',
+      serverPort: 3000,
       buttonText: 'Start Server',
+      toggleServer: this.startServer.bind(this),
       webServer: null,
     };
   }
 
-  inputChange(e) {
+  pathChange(e) {
     console.log(e.currentTarget.value);
     this.setState({
       dirPath: e.currentTarget.value,
     });
   }
 
+  portChange(e) {
+    console.log(e.currentTarget.value);
+    this.setState({
+      serverPort: e.currentTarget.value,
+    });
+  }
+
   startServer() {
-    // const webServer = require('../lib/server.js');
-    // webServer.run();
-    // this.setState({
-    //   buttonText: 'Stop Server',
-    //   toggleServer: this.stopServer.bind(this),
-    //   webServer: webServer,
-    // });
+    const server = this.state.serverModule;
+    server.run(console, this.state.serverPort, this.state.dirPath);
+    console.log('starting server');
+
+    this.setState({
+      buttonText: 'Stop Server',
+      toggleServer: this.stopServer.bind(this),
+    });
   }
 
   stopServer() {
-    // const webServer = this.state.webServer;
-    // webServer.kill();
-    // this.setState({
-    //   buttonText: 'Start Sewrver',
-    //   toggleServer: this.startServer.bind(this),
-    //   webServer: null,
-    // });
+    const server = this.state.serverModule;
+    server.kill();
+    console.log('stopping server');
+
+    this.setState({
+      buttonText: 'Start Server',
+      toggleServer: this.startServer.bind(this),
+    });
   }
 
   componentDidMount() {
     const remote = require('electron').remote;
-    remote.require('electron-react-devtools');
-    const fs = remote.require('fs');
+    // const fs = remote.require('fs');
     const server = remote.require('./lib/server.js');
-    server.startServer(console, process.stdout);
+    this.setState({
+      remote: remote,
+      serverModule: server,
+    });
   }
 
   render() {
@@ -50,8 +63,9 @@ class App extends Component {
       <div>
         <h1>Hello World!</h1>
         <h4>Welocome to the world's best media streaming server!</h4>
-        <input type="text" value={this.state.dirPath} onChange={this.inputChange.bind(this)} />
-        <p>This is working</p>
+        <input type="text" value={this.state.dirPath} onChange={this.pathChange.bind(this)} />
+        <input type="text" value={this.state.serverPort} onChange={this.portChange.bind(this)} />
+        <button onClick={this.state.toggleServer}>{this.state.buttonText}</button>
       </div>
     );
   }
