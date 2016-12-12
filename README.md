@@ -33,6 +33,24 @@ Getting the media server part working is a major challenge, and I wouldn't have 
 
 The other major roadblock in getting this to work is building out the server app that serves files. I plan on using Electron.io to build this part, and have it just be a simple React container that spawns off a web server on the user's command, making fetch calls to the client app as needed.
 
+## Wireframes
+### Server
+
+Login page:
+![Login page](http://res.cloudinary.com/chairshare/image/upload/v1481574063/Screen_Shot_2016-12-12_at_1.35.35_PM_wvpgbb.png)
+Landing page:
+![Landing page](http://res.cloudinary.com/chairshare/image/upload/v1481574063/Screen_Shot_2016-12-12_at_1.47.59_PM_kxqyyg.png)
+Streaming page:
+![Streaming page](http://res.cloudinary.com/chairshare/image/upload/v1481574063/Screen_Shot_2016-12-12_at_1.51.16_PM_b6ilys.png)
+
+### Client
+
+Login page:
+![Login page](http://res.cloudinary.com/chairshare/image/upload/v1481574063/Screen_Shot_2016-12-12_at_1.35.35_PM_wvpgbb.png)
+Streaming page:
+![Streaming page](http://res.cloudinary.com/chairshare/image/upload/v1481574063/Screen_Shot_2016-12-12_at_2.41.48_PM_ujq02a.png)
+
+
 ## Goals
 
 1) Get a simple media streaming server working with React and Express, initially serving a hardcoded directory of files
