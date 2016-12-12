@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "A server app that will be capable of serving media files from anywhere, wrapped in an electron app and built using React",
-  "main": "server.js",
+  "main": "main.js",
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules",
     "watch": "webpack -d --progress --watch",
@@ -40,6 +40,7 @@
     "babel-preset-stage-2": "^6.18.0",
     "css-loader": "^0.23.1",
     "dotenv": "^2.0.0",
+    "electron-react-devtools": "^0.4.0",
     "eslint": "^3.11.0",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",

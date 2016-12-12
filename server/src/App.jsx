@@ -37,12 +37,21 @@ class App extends Component {
     // });
   }
 
+  componentDidMount() {
+    const remote = require('electron').remote;
+    remote.require('electron-react-devtools');
+    const fs = remote.require('fs');
+    const server = remote.require('./lib/server.js');
+    server.startServer(console, process.stdout);
+  }
+
   render() {
     return(
       <div>
         <h1>Hello World!</h1>
         <h4>Welocome to the world's best media streaming server!</h4>
         <input type="text" value={this.state.dirPath} onChange={this.inputChange.bind(this)} />
+        <p>This is working</p>
       </div>
     );
   }
