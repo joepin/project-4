@@ -11,10 +11,9 @@ const port = process.env.PORT || process.argv[2] || 3000;
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
-app.use(history({ logger: logger }))
-
-app.use(express.static(path.join(__dirname, 'dist')));
-
 app.use('/api/v1/users', require('./routes/users.js'));
+
+app.use(history({ logger: logger }));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.listen(port, () => console.warn(`Server listening on port ${port}!`));

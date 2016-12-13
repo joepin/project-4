@@ -81,7 +81,16 @@ function createUser(req, res, next) {
   .catch(err => next(err));
 }
 
+function getUserData (req, res, next) {
+  const token = req.headers['token_authorization'] || req.body.token || req.params.token || req.query.token;
+  auth.getUserData(token)
+  .then((user) => res.data = user.data)
+  .then(() => next())
+  .catch(err => next(err));
+}
+
 module.exports = {
   login,
   createUser,
+  getUserData,
 }

@@ -9,6 +9,7 @@ router.route('/login')
   .post(userModel.login, sendAsJSON);
 
 router.route('/')
+  .get(userModel.getUserData, sendAsJSON)
   .post(userModel.createUser, sendAsJSON);
 
 module.exports = router;

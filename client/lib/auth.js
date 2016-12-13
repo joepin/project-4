@@ -15,6 +15,7 @@ function getUserData (token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, SECRET, (err, decoded) => {
       if (err) return reject(err);
+      console.log(decoded)
       resolve(decoded);
     });
   });
