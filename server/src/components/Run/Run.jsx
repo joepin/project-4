@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class App extends Component {
+class Run extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dirPath: '/Users/joey/code/wdi/projects/project-4/server/files',
-      serverPort: 3000,
+      serverPort: 5000,
       buttonText: 'Start Server',
       toggleServer: this.startServer.bind(this),
       webServer: null,
@@ -71,4 +71,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Run;

@@ -58,8 +58,12 @@ app.on('activate', () => {
 // code. You can also put them in separate files and require them here.
 
 const express = require('express');
-// const logger = require('morgan');
+const logger = require('morgan');
+const history = require('connect-history-api-fallback');
+
 const eapp = express();
+
+eapp.use(history({ logger: logger }));
 
 // eapp.use(logger('dev'));
 eapp.listen(4000);
