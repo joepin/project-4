@@ -10,7 +10,7 @@ class Profile extends Component {
   }
 
   componentWillMount() {
-    if (!this.props.isLoggedIn) browserHistory.push('/')
+    if (!this.props.isLoggedIn) browserHistory.push('/login')
   }
 
   render() {
