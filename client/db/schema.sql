@@ -1,0 +1,18 @@
+BEGIN;
+
+DROP TABLE IF EXISTS "user";
+
+COMMIT;
+
+BEGIN;
+
+CREATE TABLE "user" (
+  user_id SERIAL UNIQUE PRIMARY KEY,
+  fname VARCHAR(30) NOT NULL,
+  lname VARCHAR(30) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  joined_date DATE NOT NULL DEFAULT now()
+);
+
+COMMIT;

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import Login from './Login/Login.jsx';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state ={
-
+    this.state = {
+      isLoggedIn: false,
     };
   }
 
@@ -12,6 +13,7 @@ class App extends Component {
     return(
       <div>
         <h1>Hello World!!</h1>
+        <Login />
       </div>
     );
   }
