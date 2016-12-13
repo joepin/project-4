@@ -15,4 +15,6 @@ app.use(history({ logger: logger }))
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
+app.use('/api/v1/users', require('./routes/users.js'));
+
 app.listen(port, () => console.warn(`Server listening on port ${port}!`));
