@@ -7,6 +7,7 @@ function sendAsJSON(req, res, next) {
 }
 
 router.route('/')
-  .get(auth.authenticate, serverModel.getUserServers, sendAsJSON);
+  .get(auth.authenticate, serverModel.getUserServers, sendAsJSON)
+  .post(auth.authenticate, serverModel.createUserServer, sendAsJSON);
 
 module.exports = router;

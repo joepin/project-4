@@ -21,7 +21,7 @@ CREATE TABLE server (
   server_name VARCHAR(50) NOT NULL,
   server_url VARCHAR(255),
   created_date DATE NOT NULL DEFAULT now(),
-  user_id INT UNIQUE
+  user_id INT NOT NULL
 );
 
 COMMIT;
