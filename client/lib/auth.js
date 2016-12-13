@@ -15,22 +15,22 @@ function getUserData (token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, SECRET, (err, decoded) => {
       if (err) return reject(err);
-      console.log(decoded)
       resolve(decoded);
     });
   });
 }
 
-function authenticateUser (req, res, next) {
+function authenticate (req, res, next) {
   const token = req.headers['token_authorization'] || req.body.token || req.params.token || req.query.token;
   jwt.verify(token, SECRET, (err, decoded) => {
-      if (err) return next(err);
-      next();
+    if (err) return next(err);
+    res.userData = decoded.data;
+    next();
   });
 }
 
 module.exports = {
   getUserToken,
   getUserData,
-  authenticateUser,
+  authenticate,
 }

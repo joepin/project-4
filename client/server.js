@@ -12,6 +12,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 
 app.use('/api/v1/users', require('./routes/users.js'));
+app.use('/api/v1/servers', require('./routes/servers.js'));
 
 app.use(history({ logger: logger }));
 app.use(express.static(path.join(__dirname, 'dist')));
