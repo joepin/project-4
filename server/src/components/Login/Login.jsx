@@ -16,6 +16,16 @@ class Login extends Component {
     });
   }
 
+  prepareForLogin() {
+    if (this.props.serverUUID) {
+      console.log('doing login')
+      this.login();
+    } else {
+      console.log('nooooo going to settings')
+      browserHistory.push('/settings')
+    }
+  }
+
   login() {
     fetch('http://localhost:3000/api/v1/users/login', {
       headers: new Headers({
