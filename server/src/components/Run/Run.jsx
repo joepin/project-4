@@ -15,14 +15,12 @@ class Run extends Component {
   }
 
   pathChange(e) {
-    console.log(e.currentTarget.value);
     this.setState({
       dirPath: e.currentTarget.value,
     });
   }
 
   portChange(e) {
-    console.log(e.currentTarget.value);
     this.setState({
       serverPort: e.currentTarget.value,
     });

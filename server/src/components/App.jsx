@@ -19,6 +19,9 @@ class App extends Component {
   componentDidMount() {
     const remote = require('electron').remote;
     const settings = remote.require('electron-settings');
+    const getmac = remote.require('getmac');
+    getmac.getMac((err, mac) => console.log('getMac', err ? err : mac));
+
     settings.get('serverUUID')
     .then(uuid => {
       console.log('serverUUID:', uuid);
@@ -26,6 +29,7 @@ class App extends Component {
         serverUUID: uuid,
       });
     });
+
   }
 
   componentWillUnmount() {
