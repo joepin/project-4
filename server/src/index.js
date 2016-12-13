@@ -1,9 +1,9 @@
 import React    from 'react';
 import ReactDOM from 'react-dom';
-import App      from './App.jsx';
+import { browserHistory, Router } from 'react-router';
+import routes from './routes';
 
-// mount our App at #container
 ReactDOM.render(
-  <App />,
+  <Router routes={routes} history={browserHistory} />,
   document.querySelector('#root-container')
 );
