@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 
 class Login extends Component {
   constructor(props) {
@@ -10,14 +11,13 @@ class Login extends Component {
   }
 
   updateState(key, value) {
-    console.log(value);
     this.setState({
       [key]: value,
     });
   }
 
   login() {
-    fetch('/api/users/login', {
+    fetch('/api/v1/users/login', {
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
@@ -29,7 +29,10 @@ class Login extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      console.log(data);
+      this.props.updateOverallState('isLoggedIn', true);
+      this.props.updateOverallState('userData', data.user_data);
+      localStorage.setItem('userAuthToken', data.token);
+      // this.props.updateOverallState('token', data.token);
       browserHistory.push('/profile');
     })
     .catch(err => console.log(err));

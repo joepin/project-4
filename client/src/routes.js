@@ -5,8 +5,8 @@ import Login from './components/Login/Login.jsx';
 import Profile from './components/Profile/Profile.jsx';
 
 module.exports = (
-  <Route path='/'>
-    <IndexRoute component={App} />
+  <Route path='/' component={App}>
+    <IndexRoute  />
     <Route path='/login' component={Login} />
     <Route path='/profile' component={Profile} />
   </Route>
