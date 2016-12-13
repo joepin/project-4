@@ -34,7 +34,7 @@ function login(req, res, next) {
       }
       // call getUserToken on user's data and send it back to the user
       auth.getUserToken(userObj)
-      .then((token) => res.data = token)
+      .then((token) => res.token = token)
       .then(() => next())
       .catch(err => next(err));
     } else {
@@ -81,6 +81,7 @@ function createUser(req, res, next) {
   .catch(err => next(err));
 }
 
+// DEPRECATED
 function getUserData (req, res, next) {
   const token = req.headers['token_authorization'] || req.body.token || req.params.token || req.query.token;
   auth.getUserData(token)
@@ -89,8 +90,29 @@ function getUserData (req, res, next) {
   .catch(err => next(err));
 }
 
+// helper middleware that prepares res.data for sending. It serves two purposes:
+//  1) just copies res.userData to res.data, which allows us to just use the authenticate middleware to get generic user data
+//  2) builds out the res.data object from res.token and calling auth.getUserData on the token
+function prepUserData(req, res, next) {
+  if (res.token) {
+    auth.getUserData(res.token)
+    .then((userData) => {
+      res.data = {
+        token: res.token,
+        user_data: userData.data,
+      };
+    })
+    .then(() => next())
+    .catch(err => next(err));
+  } else {
+    res.data = res.userData;
+    next();
+  }
+}
+
 module.exports = {
   login,
   createUser,
   getUserData,
+  prepUserData,
 }
