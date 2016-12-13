@@ -16,10 +16,12 @@ class Profile extends Component {
   render() {
     return(
       <div>
-        <h1>In Profile</h1>
         <h3>Welcome, {this.state.userData.fname || ''} {this.state.userData.lname || ''}!</h3>
         <p>Your email: {this.state.userData.email || ''}</p>
+        <br/>
         <Link to='/run'>Prepare Your Server</Link>
+        <br/>
+        <Link to='/settings'>Edit Your Settings</Link>
       </div>
     );
   }

@@ -18,8 +18,10 @@ class Login extends Component {
 
   prepareForLogin() {
     if (this.props.serverUUID) {
+      console.log('doing login')
       this.login();
     } else {
+      console.log('nooooo going to settings')
       browserHistory.push('/settings')
     }
   }
@@ -53,7 +55,7 @@ class Login extends Component {
         <input type="text" value={this.state.email} onChange={(e) => this.updateState('email', e.target.value)} />
         <label htmlFor="password">Password:</label>
         <input type="password" value={this.state.password} onChange={(e) => this.updateState('password', e.target.value)} />
-        <button onClick={() => this.prepareForLogin()}>Login!</button>
+        <button onClick={() => this.login()}>Login!</button>
       </div>
     );
   }
