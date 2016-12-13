@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       isLoggedIn: false,
       userData: {},
+      servers: [],
     };
   }
 
@@ -30,6 +31,7 @@ class App extends Component {
           updateOverallState: (k, v) => this.updateState(k, v),
           isLoggedIn: this.state.isLoggedIn,
           userData: this.state.userData,
+          servers: this.state.servers,
         })
         }
       </div>
