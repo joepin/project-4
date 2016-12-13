@@ -16,6 +16,14 @@ class Login extends Component {
     });
   }
 
+  prepareForLogin() {
+    if (this.props.serverUUID) {
+      this.login();
+    } else {
+      browserHistory.push('/settings')
+    }
+  }
+
   login() {
     fetch('http://localhost:3000/api/v1/users/login', {
       headers: new Headers({
@@ -45,7 +53,7 @@ class Login extends Component {
         <input type="text" value={this.state.email} onChange={(e) => this.updateState('email', e.target.value)} />
         <label htmlFor="password">Password:</label>
         <input type="password" value={this.state.password} onChange={(e) => this.updateState('password', e.target.value)} />
-        <button onClick={() => this.login()}>Login!</button>
+        <button onClick={() => this.prepareForLogin()}>Login!</button>
       </div>
     );
   }

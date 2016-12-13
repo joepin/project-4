@@ -9,6 +9,7 @@ class Run extends Component {
       buttonText: 'Start Server',
       toggleServer: this.startServer.bind(this),
       webServer: null,
+      serverName: this.props.serverName,
     };
   }
 
@@ -55,6 +56,7 @@ class Run extends Component {
     this.setState({
       remote: remote,
       serverModule: server,
+      settings: settings,
     });
   }
 
@@ -65,6 +67,7 @@ class Run extends Component {
         <h4>Welocome to the world's best media streaming server!</h4>
         <input type="text" value={this.state.dirPath} onChange={this.pathChange.bind(this)} />
         <input type="text" value={this.state.serverPort} onChange={this.portChange.bind(this)} />
+        <input type="text" value={this.state.serverName}/>
         <button onClick={this.state.toggleServer}>{this.state.buttonText}</button>
       </div>
     );
