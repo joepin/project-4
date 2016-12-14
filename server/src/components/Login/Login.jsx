@@ -27,7 +27,7 @@ class Login extends Component {
   }
 
   login() {
-    fetch('http://localhost:3000/api/v1/users/login', {
+    fetch('http://localhost:3000/api/v1/servers/login', {
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
