@@ -1,14 +1,15 @@
 const router = require('express').Router();
 const auth = require('../lib/auth.js');
 const serverModel = require('../models/server.js');
+const { login } = require('../models/user.js');
 
 function sendAsJSON(req, res, next) {
   res.json(res.data);
 }
 
 router.route('/register')
-  .post(auth.authenticate, serverModel.registerServer, sendAsJSON)
-  .delete(auth.authenticate, serverModel.unregisterServer);
+  .post(login, serverModel.getUserData, serverModel.checkIfServerIsRegistered, serverModel.generateUUID, serverModel.registerServer, serverModel.prepareResponse, sendAsJSON)
+  .delete(auth.authenticate, serverModel.unregisterServer, sendAsJSON);
 
 router.route('/')
   .get(auth.authenticate, serverModel.getUserServers, sendAsJSON)
