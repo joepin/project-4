@@ -2,8 +2,11 @@ const express    = require('express');
 const path       = require('path');
 const fs         = require('fs-extra');
 const logger     = require('morgan');
+const ngrok      = require('ngrok');
+const fetch      = require('node-fetch');
 
 let runningServer = null;
+let ngrokURL = null;
 
 function buildFileList(filesPath) {
   const pathsArray = fs.walkSync(filesPath);
@@ -21,12 +24,17 @@ function buildFileList(filesPath) {
   return pathsAsJSON;
 }
 
-function run(devConsole, serverPort, filesPath) {
-  const cons = devConsole ? devConsole : console;
-  if (!fs.existsSync(filesPath)) {
-    return cons.error('Error: invalid file path');
-  }
+function publishServerToAPI(err, url, uuid, next) {
+  console.log('uuid:', uuid)
+  if (err) return console.log(err);
+  console.log('in function', url);
+  ngrokURL = url;
+  fetch(`http://localhost:3000/api/v1/servers/start?uuid=${uuid}&url=${url}`)
+  .then(() => next())
+  .catch(err => console.log(err));
+}
 
+function startServer(cons, serverPort, filesPath) {
   const pathsAsJSON = buildFileList(filesPath);
 
   const app = express();
@@ -45,12 +53,31 @@ function run(devConsole, serverPort, filesPath) {
   cons.log(`Serving files from ${filesPath}`)
 }
 
+function run(devConsole, serverPort, filesPath, uuid) {
+  const cons = devConsole ? devConsole : console;
+  if (!isValidPath(filesPath)) {
+    return cons.error('Error: invalid file path');
+  }
+  const next = () => startServer(cons, serverPort, filesPath);
+
+  ngrok.connect(serverPort, (err, url) => {
+    publishServerToAPI(err, url, uuid, next);
+  });
+}
+
 function kill() {
   if (runningServer) runningServer.close();
+  ngrok.disconnect(ngrokURL);
+  ngrokURL = null;
   runningServer = null;
+}
+
+function isValidPath(fp) {
+  return fs.existsSync(fp);
 }
 
 module.exports = {
   run,
   kill,
+  isValidPath,
 }

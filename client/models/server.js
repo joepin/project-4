@@ -105,6 +105,23 @@ function unregisterServer(req, res, next) {
   next();
 }
 
+function saveServerURL(req, res, next) {
+  console.log('req.query', req.query)
+  const uuid = req.query.uuid;
+  const url = req.query.url;
+
+  const query = `INSERT INTO server_uuid_url (server_uuid, server_url) VALUES($1, $2);`;
+  const values = [
+    uuid,
+    url,
+  ];
+
+  db.none(query, values)
+  .then(() => res.data = 'Success')
+  .then(() => next())
+  .catch(err => next(err));
+}
+
 module.exports = {
   getUserServers,
   getUserData,
@@ -114,4 +131,5 @@ module.exports = {
   prepareResponse,
   createUserServer,
   unregisterServer,
+  saveServerURL,
 }
