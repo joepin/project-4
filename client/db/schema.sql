@@ -19,9 +19,13 @@ CREATE TABLE "user" (
 CREATE TABLE server (
   server_id SERIAL UNIQUE PRIMARY KEY,
   server_name VARCHAR(50) NOT NULL,
+  server_mac VARCHAR(17) UNIQUE NOT NULL,
+  server_uuid VARCHAR(36) NOT NULL,
   server_url VARCHAR(255),
   created_date DATE NOT NULL DEFAULT now(),
   user_id INT NOT NULL
 );
+
+ALTER SEQUENCE server_server_id_seq RESTART WITH 1000;
 
 COMMIT;
