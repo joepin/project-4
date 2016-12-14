@@ -15,7 +15,7 @@ function getUserServers(req, res, next) {
 
 function getUserData(req, res, next) {
   auth.getUserData(res.token)
-  .then(user => res.userData = user)
+  .then(user => res.userData = user.data)
   .then(() => next())
   .catch(err => next(err));
 }
@@ -25,28 +25,34 @@ function checkIfServerIsRegistered(req, res, next) {
   const normalizedMac = mac.replace(/(:|-)/g, '');
   res.normalizedMac = normalizedMac;
 
-  const query = `SELECT * FROM "server" WHERE server_id = $1;`;
+  const query = `SELECT * FROM "server" WHERE server_mac = $1;`;
   const values = [normalizedMac];
 
   db.any(query, values)
-  .then(data => data ? next(new Error('Computer is already registered.')) : next())
+  .then(data => {
+    if (data.length > 0) {
+      next(new Error('Computer is already registered.'));
+    } else {
+      next();
+    }
+  })
   .catch(err => next(err));
 }
 
 function generateUUID(req, res, next) {
-  const mac = req.body.mac;
   const userID = res.userData.user_id;
-  const normalizedMac = mac.replace(/(:|-)/g, '');
+  const normalizedMac = res.normalizedMac;
   const macArray = normalizedMac.split('');
   const idArray = userID.toString().split('');
   const together = macArray.concat(idArray);
   const random = together.map((value) => parseInt('0x' + value));
-  const generatedUUID = uuid.v4({ random: random });
-  res.generatedUUID = generatedUUID;
+  res.generatedUUID = uuid.v4({ random: random });
+  console.log('generated:', res.generatedUUID);
   next();
 }
 
 function registerServer(req, res, next) {
+  console.log(req.body);
   const userID = res.userData.user_id;
   const serverName = req.body.name;
   const serverMac = res.normalizedMac;
@@ -59,6 +65,8 @@ function registerServer(req, res, next) {
     serverUUID,
     userID,
   ];
+
+  console.log('values:\n', values)
 
   db.one(query, values)
   .then(server => res.insertedServer = server)
