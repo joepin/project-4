@@ -65,11 +65,13 @@ function run(devConsole, serverPort, filesPath, uuid) {
   });
 }
 
-function kill() {
+function kill(uuid) {
   if (runningServer) runningServer.close();
   ngrok.disconnect(ngrokURL);
   ngrokURL = null;
   runningServer = null;
+  fetch(`http://localhost:3000/api/v1/servers/stop?uuid=${uuid}`)
+  .catch(err => console.log(err));
 }
 
 function isValidPath(fp) {

@@ -39,7 +39,7 @@ class Run extends Component {
 
   stopServer() {
     const server = this.state.serverModule;
-    server.kill();
+    server.kill(this.props.serverUUID);
     this.setState({
       buttonText: 'Start Server',
       toggleServer: this.startServer.bind(this),

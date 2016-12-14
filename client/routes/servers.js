@@ -14,6 +14,9 @@ router.route('/register')
 router.route('/start')
   .get(serverModel.saveServerURL, sendAsJSON);
 
+router.route('/stop')
+  .get(serverModel.deleteServerURL, sendAsJSON);
+
 router.route('/')
   .get(auth.authenticate, serverModel.getUserServers, sendAsJSON)
   .post(auth.authenticate, serverModel.createUserServer, sendAsJSON);

@@ -106,7 +106,6 @@ function unregisterServer(req, res, next) {
 }
 
 function saveServerURL(req, res, next) {
-  console.log('req.query', req.query)
   const uuid = req.query.uuid;
   const url = req.query.url;
 
@@ -116,6 +115,16 @@ function saveServerURL(req, res, next) {
     url,
   ];
 
+  db.none(query, values)
+  .then(() => res.data = 'Success')
+  .then(() => next())
+  .catch(err => next(err));
+}
+
+function deleteServerURL(req, res, next) {
+  const uuid = req.query.uuid;
+  const query = `DELETE FROM server_uuid_url WHERE server_uuid = $1;`;
+  const values = [uuid];
   db.none(query, values)
   .then(() => res.data = 'Success')
   .then(() => next())
@@ -132,4 +141,5 @@ module.exports = {
   createUserServer,
   unregisterServer,
   saveServerURL,
+  deleteServerURL,
 }
