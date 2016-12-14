@@ -15,26 +15,31 @@ class App extends Component {
   componentWillMount() {
     const remote = require('electron').remote;
     const settings = remote.require('electron-settings');
-    const token = settings.getSync('serverAuthToken');
     const uuid = settings.getSync('serverUUID');
+    const mac = settings.getSync('serverMac');
+    const name = settings.getSync('serverName');
+    const user = settings.getSync('userData');
     console.log('serverUUID:', uuid);
-    console.log('serverAuthToken:', token);
+    console.log('serverMac:', mac);
+    console.log('user:', user);
     this.setState({
       serverUUID: uuid,
-      serverAuthToken: token,
+      serverMac: mac,
+      serverName: name,
+      userData: user,
+      isLoggedIn: !!uuid,
     });
-    browserHistory.push(token ? '/profile' : '/login');
+    browserHistory.push(uuid ? '/profile' : '/register');
   }
 
-  componentDidMount() {
-    const remote = require('electron').remote;
-    const settings = remote.require('electron-settings');
-    const { getMac } = remote.require('getmac');
-    getMac((err, mac) => console.log('getMac', err ? err : mac));
-  }
+  // componentDidMount() {
+  //   const remote = require('electron').remote;
+  //   const settings = remote.require('electron-settings');
+  //   // const { getMac } = remote.require('getmac');
+  //   // getMac((err, mac) => console.log('getMac', err ? err : mac));
+  // }
 
   componentWillUnmount() {
-    localStorage.removeItem('userAuthToken');
   }
 
   updateState(key, value) {
@@ -53,20 +58,13 @@ class App extends Component {
           userData: this.state.userData,
           servers: this.state.servers,
           serverUUID: this.state.serverUUID,
-          serverAuthToken: this.state.serverAuthToken,
+          serverMac: this.state.serverMac,
+          serverName: this.state.serverName,
         })
         }
       </div>
     );
   }
 }
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <div><h1>Hello World! (Again)</h1></div>
-//     );
-//   }
-// }
 
 export default App;

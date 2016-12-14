@@ -2,6 +2,7 @@ const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
 const settings = require('electron-settings')
+const mac = require('./lib/getMacs.js');
 
 settings.defaults({
   width: 800,
@@ -9,29 +10,26 @@ settings.defaults({
   internalPort: 4000,
   publicPort: 5000,
   defaultPath: '~/Media',
-  serverName: 'Default Media Server',
+  serverName: 'Media Server',
+  serverMac: mac,
   serverUUID: null,
+  userData: {},
 });
 
-let currSettings = {}
 
-console.log('path:', settings.getSettingsFilePath())
+// console.log('path:', settings.getSettingsFilePath())
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win
+let win;
+let currSettings = {};
 
 function prepareForWindow () {
-
-  Promise.all([settings.get('width'), settings.get('height'), settings.get('internalPort')])
-  .then(values => {
-    // console.log(values);
-    currSettings.width = values[0]
-    currSettings.height = values[1]
-    currSettings.innerPort = values[2]
+    currSettings.width = settings.getSync('width');
+    currSettings.height = settings.getSync('height');
+    currSettings.innerPort = settings.getSync('internalPort');
     startExpressServer();
     createWindow();
-  });
 }
 
 function startExpressServer() {
@@ -50,6 +48,7 @@ function startExpressServer() {
 }
 
 function createWindow () {
+  // settings.resetToDefaults();
   // Create the browser window.
   win = new BrowserWindow({width: currSettings.width, height: currSettings.height, title: 'Testing'})
 

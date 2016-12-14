@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 
-class Login extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
+      name: props.serverName,
     };
   }
 
@@ -17,29 +18,21 @@ class Login extends Component {
   }
 
   prepareForLogin() {
-    if (this.props.serverUUID) {
-      console.log('doing login')
-      this.login();
-    } else {
-      console.log('nooooo going to settings')
+    if (!this.props.serverUUID) {
       browserHistory.push('/settings')
     }
   }
 
-  login() {
+  register() {
     const bodyObj = {
       email: this.state.email,
       password: this.state.password,
+      name: this.state.name,
+      mac: this.props.serverMac,
     };
+    console.log(bodyObj)
 
-    if (!this.props.serverAuthToken) {
-      const macAddress = require('electron').remote.require('./lib/getMacs.js');
-      bodyObj.mac = macAddress;
-    } else {
-      bodyObj.serverToken = this.state.serverAuthToken;
-    }
-
-    fetch('http://localhost:3000/api/v1/servers/login', {
+    fetch('http://localhost:3000/api/v1/servers/register', {
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
@@ -48,10 +41,17 @@ class Login extends Component {
     })
     .then(r => r.json())
     .then(data => {
+      console.log(data);
+      const remote = require('electron').remote;
+      const settings = remote.require('electron-settings');
+
       this.props.updateOverallState('isLoggedIn', true);
       this.props.updateOverallState('userData', data.user_data);
-      localStorage.setItem('userAuthToken', data.token);
-      // this.props.updateOverallState('token', data.token);
+      this.props.updateOverallState('serverUUID', data.server_data.server_uuid)
+
+      settings.setSync('serverUUID', data.server_data.server_uuid);
+      settings.setSync('userData', data.user_data);
+
       browserHistory.push('/profile');
     })
     .catch(err => console.log(err));
@@ -62,12 +62,17 @@ class Login extends Component {
       <div>
         <label htmlFor="email">Email:</label>
         <input type="text" value={this.state.email} onChange={(e) => this.updateState('email', e.target.value)} />
+        <br/>
         <label htmlFor="password">Password:</label>
         <input type="password" value={this.state.password} onChange={(e) => this.updateState('password', e.target.value)} />
-        <button onClick={() => this.login()}>Login!</button>
+        <br/>
+        <label htmlFor="name">Server Name:</label>
+        <input type="name" value={this.state.name} onChange={(e) => this.updateState('name', e.target.value)} />
+        <br/>
+        <button onClick={() => this.register()}>Login!</button>
       </div>
     );
   }
 }
 
-export default Login;
+export default Register;
