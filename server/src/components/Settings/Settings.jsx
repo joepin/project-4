@@ -64,8 +64,6 @@ class Settings extends Component {
         <button disabled={this.state.isDisabled} onClick={() => this.saveSettings()} >Save</button>
         <br/>
         <Link to='/profile'>Go to Your Profile</Link>
-        <br/>
-        <Link to='/'>Go Home</Link>
       </div>
     )
   }

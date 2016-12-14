@@ -27,15 +27,24 @@ class Login extends Component {
   }
 
   login() {
-    fetch('http://localhost:3000/api/v1/users/login', {
+    const bodyObj = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+
+    if (!this.props.serverAuthToken) {
+      const macAddress = require('electron').remote.require('./lib/getMacs.js');
+      bodyObj.mac = macAddress;
+    } else {
+      bodyObj.serverToken = this.state.serverAuthToken;
+    }
+
+    fetch('http://localhost:3000/api/v1/servers/login', {
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
       method: 'POST',
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
-      }),
+      body: JSON.stringify(bodyObj),
     })
     .then(r => r.json())
     .then(data => {

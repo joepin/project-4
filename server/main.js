@@ -22,6 +22,7 @@ console.log('path:', settings.getSettingsFilePath())
 let win
 
 function prepareForWindow () {
+
   Promise.all([settings.get('width'), settings.get('height'), settings.get('internalPort')])
   .then(values => {
     // console.log(values);
@@ -100,7 +101,7 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
-    createWindow()
+    prepareForWindow()
   }
 })
 
