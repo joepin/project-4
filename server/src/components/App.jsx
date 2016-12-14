@@ -13,23 +13,24 @@ class App extends Component {
   }
 
   componentWillMount() {
-    browserHistory.push(this.state.isLoggedIn ? '/profile' : '/login');
+    const remote = require('electron').remote;
+    const settings = remote.require('electron-settings');
+    const token = settings.getSync('serverAuthToken');
+    const uuid = settings.getSync('serverUUID');
+    console.log('serverUUID:', uuid);
+    console.log('serverAuthToken:', token);
+    this.setState({
+      serverUUID: uuid,
+      serverAuthToken: token,
+    });
+    browserHistory.push(token ? '/profile' : '/login');
   }
 
   componentDidMount() {
     const remote = require('electron').remote;
     const settings = remote.require('electron-settings');
-    const getmac = remote.require('getmac');
-    getmac.getMac((err, mac) => console.log('getMac', err ? err : mac));
-
-    settings.get('serverUUID')
-    .then(uuid => {
-      console.log('serverUUID:', uuid);
-      this.setState({
-        serverUUID: uuid,
-      });
-    });
-
+    const { getMac } = remote.require('getmac');
+    getMac((err, mac) => console.log('getMac', err ? err : mac));
   }
 
   componentWillUnmount() {
@@ -52,6 +53,7 @@ class App extends Component {
           userData: this.state.userData,
           servers: this.state.servers,
           serverUUID: this.state.serverUUID,
+          serverAuthToken: this.state.serverAuthToken,
         })
         }
       </div>
