@@ -41,15 +41,17 @@ class Register extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      this.props.updateOverallState('isLoggedIn', true);
-      this.props.updateOverallState('userData', data.user_data);
+      console.log(data);
       const remote = require('electron').remote;
       const settings = remote.require('electron-settings');
-      settings.setSync('serverUUID', data.server_data.server_uuid);
-      settings.setSync('userData', data.server_data.server_uuid);
+
+      this.props.updateOverallState('isLoggedIn', true);
+      this.props.updateOverallState('userData', data.user_data);
       this.props.updateOverallState('serverUUID', data.server_data.server_uuid)
-      // localStorage.setItem('userAuthToken', data.token);
-      // this.props.updateOverallState('token', data.token);
+
+      settings.setSync('serverUUID', data.server_data.server_uuid);
+      settings.setSync('userData', data.user_data);
+
       browserHistory.push('/profile');
     })
     .catch(err => console.log(err));

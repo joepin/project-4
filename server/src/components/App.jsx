@@ -21,11 +21,13 @@ class App extends Component {
     const user = settings.getSync('userData');
     console.log('serverUUID:', uuid);
     console.log('serverMac:', mac);
+    console.log('user:', user);
     this.setState({
       serverUUID: uuid,
       serverMac: mac,
       serverName: name,
       userData: user,
+      isLoggedIn: !!uuid,
     });
     browserHistory.push(uuid ? '/profile' : '/register');
   }
