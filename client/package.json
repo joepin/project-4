@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules",
     "heroku-prebuild": "bash ./scripts/deployment_react.sh",
-    "heroku-postbuild": "bash ./scripts/deployment_cleanup.sh",
+    "heroku-postbuild": "rm -rf db src scripts webpack.config.js .babelrc .gitignore README.md",
     "watch": "webpack -d --progress --watch",
     "start": "node server.js",
     "rebuild": "webpack -d --progress --colors"

@@ -8,7 +8,11 @@
 # Let's clean up anything we did before
 npm run clean -s
 
-cd client/
+rm -f package.json && rm -f .gitignore
+
+cp -r client/ ./
+
+rm -rf client/
 
 # Go get all the npm assets we'll need which include all the devDependencies
 # Don't invoke the npm lifecycle methods
