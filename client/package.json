@@ -61,6 +61,7 @@
     "react-addons-test-utils": "^15.0.1",
     "react-dom": "^15.3.0",
     "react-dropzone": "^3.7.3",
+    "react-media-player": "^0.6.0",
     "react-router": "^2.8.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",

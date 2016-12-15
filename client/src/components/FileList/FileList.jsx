@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import File from './File/File.jsx';
+// import MediaPlayer from './MediaPlayer/MediaPlayer.jsx';
 // import styles from './FileList.css';
 
 class FileList extends Component {
@@ -10,6 +11,7 @@ class FileList extends Component {
       url: this.props.activeServer.server_url,
       audioSrc: '',
       videoSrc: '',
+      src: '',
     }
   }
 
@@ -33,8 +35,8 @@ class FileList extends Component {
     const audioExts = /^.*\.(mp3|MP3|wav|WAV)$/;
     const videoExts = /^.*\.(mp4|MP4|mov|MOV|mpg|MPG|mpeg|MPEG|avi|AVI)$/;
     const fullPath = `${this.state.url}/stream?path=${path}`;
-    if (audioExts.test(extension)) this.setState({ 'audioSrc': fullPath });
-    if (videoExts.test(extension)) this.setState({ 'videoSrc': fullPath });
+    if (audioExts.test(extension)) this.setState({ 'audioSrc': fullPath, src: fullPath });
+    if (videoExts.test(extension)) this.setState({ 'videoSrc': fullPath, src: fullPath });
   }
 
   render() {
@@ -51,11 +53,12 @@ class FileList extends Component {
       <div>
         <h2>Files List</h2>
         {filesComps}
-        <audio controls src={this.state.audioSrc}></audio>
-        <video controls src={this.state.videoSrc}></video>
+        <audio autoPlay controls src={this.state.audioSrc}></audio>
+        <video autoPlay controls src={this.state.videoSrc}></video>
       </div>
     )
   }
 }
 
 export default FileList;
+        // <MediaPlayer src={this.state.src} />

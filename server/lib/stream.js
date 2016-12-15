@@ -8,18 +8,25 @@ const path = require('path');
 const fs   = require('fs');
 const mime = require('mime');
 
+let FILE_PATH = '';
+
+function setFilePath(fp) {
+  FILE_PATH = fp;
+}
+
 function checkFile(req, res, next) {
   const filePath = req.query.path;
   if (!filePath) next(new Error('Please specify a file path.'));
-  const fullPath = path.resolve(__dirname, `../${filePath}`);
-  console.log('full path:', fullPath);
-  res.fullPath = fullPath;
-  fs.existsSync(filePath) ? next() : next(new Error('File does not exist.'));
+  const fullPath = path.resolve(FILE_PATH, `${filePath}`);
+  const final = fullPath.replace(' ', '');
+  console.log('final path:', final);
+  res.fullPath = final;
+  fs.existsSync(final) ? next() : next(new Error('File does not exist.'));
 }
 
 function checkFileType(path) {
   const audioExts = /^.*\.(mp3|MP3|wav|WAV)$/;
-  const videoExts = /^.*\.(mp4|MP4|mov|MOV|mpg|MPG|mpeg|MPEG|avi|AVI)$/;
+  const videoExts = /^.*\.(mp4|MP4)$/;
   let valid = true;
   let typeText = null;
   if (audioExts.test(path)) {
@@ -66,4 +73,5 @@ module.exports = {
   checkFile,
   setMimeType,
   startStream,
+  setFilePath,
 }
