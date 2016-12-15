@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       userData: {},
       servers: [],
+      activeServer: {},
     };
   }
 
@@ -46,6 +47,7 @@ class App extends Component {
           updateOverallState: (k, v) => this.updateState(k, v),
           userData: this.state.userData,
           servers: this.state.servers,
+          activeServer: this.state.activeServer,
         })
         }
       </div>

@@ -12,7 +12,7 @@ function buildFileList(filesPath) {
   const pathsArray = fs.walkSync(filesPath);
   let fileHTML = [];
   const exts = /^.*\.(mp3|MP3|wav|WAV|mp4|MP4|mov|MOV|mpg|MPG|mpeg|MPEG|avi|AVI)$/;
-  const relativePaths = pathsArray.filter((fPath) => exts.test(fPath)).map((fPath) => fPath.substr(filesPath.length));
+  const relativePaths = pathsArray.filter((fPath) => exts.test(fPath)).map((fPath) => fPath.substr((filesPath.length - path.basename(fPath, path.extname(fPath)).length)));
   const pathsAsJSON = relativePaths.map((relPath, i) => {
     const name = path.basename(relPath, path.extname(relPath))
     return {
@@ -25,7 +25,6 @@ function buildFileList(filesPath) {
 }
 
 function publishServerToAPI(err, url, uuid, next) {
-  console.log('uuid:', uuid)
   if (err) return console.log(err);
   console.log('in function', url);
   ngrokURL = url;
@@ -42,6 +41,11 @@ function startServer(cons, serverPort, filesPath) {
 
   const stream = require('./stream.js');
 
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
   // app.use(logger('dev'));
   app.use(express.static(path.resolve(filesPath)));

@@ -12,6 +12,7 @@ function checkFile(req, res, next) {
   const filePath = req.query.path;
   if (!filePath) next(new Error('Please specify a file path.'));
   const fullPath = path.resolve(__dirname, `../${filePath}`);
+  console.log('full path:', fullPath);
   res.fullPath = fullPath;
   fs.existsSync(filePath) ? next() : next(new Error('File does not exist.'));
 }

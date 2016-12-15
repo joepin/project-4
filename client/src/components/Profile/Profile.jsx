@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import ServerList from '../ServerList/ServerList.jsx';
 
 class Profile extends Component {
@@ -41,11 +41,14 @@ class Profile extends Component {
   render() {
     return(
       <div>
-        <h1>In Profile</h1>
         <button onClick={() => this.logout()}>Log Out</button>
         <h3>Welcome, {this.state.userData.fname || ''} {this.state.userData.lname || ''}!</h3>
         <p>Your email: {this.state.userData.email || ''}</p>
-        <ServerList servers={this.props.servers} />
+        <Link to='/files'>See files</Link>
+        <ServerList
+          servers={this.props.servers}
+          updateAppState={this.props.updateOverallState}
+        />
       </div>
     );
   }
