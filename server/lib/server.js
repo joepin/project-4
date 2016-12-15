@@ -12,7 +12,7 @@ function buildFileList(filesPath) {
   const pathsArray = fs.walkSync(filesPath);
   let fileHTML = [];
   const exts = /^.*\.(mp3|MP3|wav|WAV|mp4|MP4)$/;
-  const relativePaths = pathsArray.filter((fPath) => exts.test(fPath)).map((fPath) => fPath.substr((fPath.length - (fPath.length - filesPath.length))));
+  const relativePaths = pathsArray.filter((fPath) => exts.test(fPath)).map((fPath) => fPath.substr( (fPath.length - (fPath.length - filesPath.length) + 1 ) ));
   const pathsAsJSON = relativePaths.map((relPath, i) => {
     const name = path.basename(relPath, path.extname(relPath))
     return {

@@ -15,10 +15,11 @@ function setFilePath(fp) {
 }
 
 function checkFile(req, res, next) {
+  console.log('FILE_PATH:', FILE_PATH)
   const filePath = decodeURIComponent(req.query.path);
-  console.log('filePath', filePath)
   if (!filePath) next(new Error('Please specify a file path.'));
-  const fullPath = path.resolve(FILE_PATH, `${filePath}`);
+  const fullPath = path.resolve(FILE_PATH, filePath);
+  console.log('fullPath', fullPath)
   const final = fullPath.replace(/^[ \r\n\t]+|[ \r\n\t]+$/, '');
   console.log('final path:', final);
   res.fullPath = final;
