@@ -15,7 +15,7 @@ function setFilePath(fp) {
 }
 
 function checkFile(req, res, next) {
-  const filePath = req.query.path;
+  const filePath = decodeURIComponent(req.query.path);
   if (!filePath) next(new Error('Please specify a file path.'));
   const fullPath = path.resolve(FILE_PATH, `${filePath}`);
   const final = fullPath.replace(' ', '');

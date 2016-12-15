@@ -1,0 +1,18 @@
+.file {
+  display: block;
+  width: 76%;
+  padding: 2%;
+  margin: 1% 10%;
+  border: 1px solid black;
+  background: #fcd94e;
+  cursor: pointer;
+}
+
+.name {
+  display: inline-block;
+}
+
+.play {
+  display: inline-block;
+  float: right;
+}
