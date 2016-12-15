@@ -1,0 +1,20 @@
+{
+  "name": "cloudMe",
+  "version": "1.0.0",
+  "description": "A client React app whose goal is to connect users with their media servers",
+  "main": "main.js",
+  "scripts": {
+    "clean": "rm -rf server && rm -rf client/dist && rm -rf clients/node_modules",
+    "heroku-prebuild": "bash ./scripts/deployment_react.sh",
+    "heroku-postbuild": "bash ./scripts/deployment_cleanup.sh",
+    "start": "node client/server.js"
+  },
+  "keywords": [
+    "client",
+    "react",
+    "media server",
+    "tunnel"
+  ],
+  "author": "Joey Pinhas",
+  "license": "MIT"
+}
