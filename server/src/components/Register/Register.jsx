@@ -31,7 +31,7 @@ class Register extends Component {
       mac: this.props.serverMac,
     };
 
-    fetch('http://localhost:3000/api/v1/servers/register', {
+    fetch('http://cloudme.herokuapp.com/api/v1/servers/register', {
       headers: new Headers({
         'Content-Type': 'application/json',
       }),

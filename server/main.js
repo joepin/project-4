@@ -60,7 +60,7 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   // set up a key in win to pass data to renderer
   // win.transfer = {}

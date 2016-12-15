@@ -47,6 +47,22 @@ class Settings extends Component {
     this.getSettings();
   }
 
+  resetAllSettings() {
+    const remote = require('electron').remote;
+    const settings = remote.require('electron-settings');
+    fetch('http://cloudme.herokuapp.com/api/v1/servers/unregister', {
+      header: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      method: 'POST',
+      body: JSON.stringify({
+        uuid: this.props.serverUUID,
+      }),
+    })
+    .catch(err => console.log(err));
+    settings.resetToDefaults();
+  }
+
   render() {
     return (
       <div>
@@ -63,6 +79,10 @@ class Settings extends Component {
         <button disabled={this.state.isDisabled} onClick={() => this.saveSettings()} >Save</button>
         <br/>
         <Link to='/profile'>Go to Your Profile</Link>
+        <br/>
+        <br/>
+        <br/>
+        <button onClick={() => this.resetAllSettings()}>Reset All Settings</button>
       </div>
     )
   }

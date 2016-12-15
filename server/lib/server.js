@@ -28,7 +28,7 @@ function publishServerToAPI(err, url, uuid, next) {
   if (err) return console.log(err);
   console.log('in function', url);
   ngrokURL = url;
-  fetch(`http://localhost:3000/api/v1/servers/start?uuid=${uuid}&url=${url}`)
+  fetch(`http://cloudme.herokuapp.com/api/v1/servers/start?uuid=${uuid}&url=${url}`)
   .then(() => next())
   .catch(err => console.log(err));
 }
@@ -75,7 +75,7 @@ function kill(uuid) {
   ngrok.disconnect(ngrokURL);
   ngrokURL = null;
   runningServer = null;
-  fetch(`http://localhost:3000/api/v1/servers/stop?uuid=${uuid}`)
+  fetch(`http://cloudme.herokuapp.com/api/v1/servers/stop?uuid=${uuid}`)
   .catch(err => console.log(err));
 }
 
