@@ -28,8 +28,8 @@ class App extends Component {
     } else {
       // if not, then clear all of localStorage just in case
       localStorage.clear();
-      // redirect the user to the login page
-      browserHistory.push('/login');
+      // redirect the user to the home page
+      browserHistory.push('/');
     }
   }
 

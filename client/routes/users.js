@@ -11,6 +11,6 @@ router.route('/login')
 
 router.route('/')
   .get(auth.authenticate, userModel.prepUserData, sendAsJSON)
-  .post(userModel.createUser, sendAsJSON);
+  .post(userModel.createUser, userModel.prepUserData, sendAsJSON);
 
 module.exports = router;

@@ -73,7 +73,7 @@ function createUser(req, res, next) {
   .then((data) => {
     // ...then get a token for the user and send it back to the caller
     auth.getUserToken(data)
-      .then((token) => res.data = token)
+      .then((token) => res.token = token)
       .then(() => next())
       .catch(err => next(err));
   })

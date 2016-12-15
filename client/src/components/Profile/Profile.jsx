@@ -13,9 +13,8 @@ class Profile extends Component {
   componentWillMount() {
     const token = localStorage.getItem('userAuthToken');
     const startTime = localStorage.getItem('tokenReceived');
-    if (!(token || (Date.now() - startTime <= 14400000))) browserHistory.push('/login');
-
-    this.getUserServers();
+    if (!(token || (Date.now() - startTime <= 14400000))) browserHistory.push('/');
+    else this.getUserServers();
   }
 
   getUserServers() {
