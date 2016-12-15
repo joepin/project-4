@@ -1,0 +1,14 @@
+.main-container {
+  height: 75%;
+  width: 75%;
+  background: red;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.main-title {
+  width: 100%;
+  text-align: center;
+}
