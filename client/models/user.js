@@ -81,15 +81,6 @@ function createUser(req, res, next) {
   .catch(err => next(err));
 }
 
-// DEPRECATED
-function getUserData (req, res, next) {
-  const token = req.headers['token_authorization'] || req.body.token || req.params.token || req.query.token;
-  auth.getUserData(token)
-  .then((user) => res.data = user.data)
-  .then(() => next())
-  .catch(err => next(err));
-}
-
 // helper middleware that prepares res.data for sending. It serves two purposes:
 //  1) just copies res.userData to res.data, which allows us to just use the authenticate middleware to get generic user data
 //  2) builds out the res.data object from res.token and calling auth.getUserData on the token
@@ -110,9 +101,20 @@ function prepUserData(req, res, next) {
   }
 }
 
+function getUserServers(req, res, next) {
+  const userID = res.userData.user_id;
+  const query = `SELECT * FROM server INNER JOIN server_uuid_url ON server.server_uuid = server_uuid_url.server_uuid WHERE user_id = $1;`;
+  const values = [userID];
+
+  db.any(query, values)
+  .then(data => res.data = data)
+  .then(() => next())
+  .catch(err => next(err));
+}
+
 module.exports = {
   login,
   createUser,
-  getUserData,
   prepUserData,
+  getUserServers,
 }

@@ -18,7 +18,7 @@ class Profile extends Component {
   }
 
   getUserServers() {
-    fetch('/api/v1/servers', {
+    fetch('/api/v1/users/servers', {
       headers: new Headers({
         'Token_Authorization': localStorage.getItem('userAuthToken'),
       })

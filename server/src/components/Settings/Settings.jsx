@@ -30,7 +30,6 @@ class Settings extends Component {
   }
 
   updateState(key, value) {
-    // console.log('key:', key, '\n', 'value:', value);
     this.setState({
       [key]: value,
     });
