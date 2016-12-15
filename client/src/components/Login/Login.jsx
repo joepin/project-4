@@ -29,10 +29,10 @@ class Login extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      this.props.updateOverallState('isLoggedIn', true);
       this.props.updateOverallState('userData', data.user_data);
       localStorage.setItem('userAuthToken', data.token);
-      // this.props.updateOverallState('token', data.token);
+      localStorage.setItem('tokenReceived', Date.now());
+      localStorage.setItem('userData', JSON.stringify(data.user_data));
       browserHistory.push('/profile');
     })
     .catch(err => console.log(err));

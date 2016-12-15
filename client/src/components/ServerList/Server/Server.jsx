@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from './Server.css';
 
 const Server = props => {
   return (
-    <div>
+    <div className={styles['server-container']} onClick={props.click}>
       <h4>{props.name}</h4>
-      <h4>{props.url}</h4>
+      <p>{props.url}</p>
     </div>
   )
 }

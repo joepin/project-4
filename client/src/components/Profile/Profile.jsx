@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import ServerList from '../ServerList/ServerList.jsx';
 
 class Profile extends Component {
@@ -11,7 +11,9 @@ class Profile extends Component {
   }
 
   componentWillMount() {
-    if (!this.props.isLoggedIn) browserHistory.push('/login');
+    const token = localStorage.getItem('userAuthToken');
+    const startTime = localStorage.getItem('tokenReceived');
+    if (!(token || (Date.now() - startTime <= 14400000))) browserHistory.push('/login');
 
     this.getUserServers();
   }
@@ -28,13 +30,25 @@ class Profile extends Component {
     })
   }
 
+  logout() {
+    this.props.updateOverallState('userData', {});
+    localStorage.removeItem('userAuthToken');
+    localStorage.removeItem('tokenReceived');
+    localStorage.removeItem('userData');
+    browserHistory.push('/login');
+  }
+
   render() {
     return(
       <div>
-        <h1>In Profile</h1>
+        <button onClick={() => this.logout()}>Log Out</button>
         <h3>Welcome, {this.state.userData.fname || ''} {this.state.userData.lname || ''}!</h3>
         <p>Your email: {this.state.userData.email || ''}</p>
-        <ServerList servers={this.props.servers} />
+        <Link to='/files'>See files</Link>
+        <ServerList
+          servers={this.props.servers}
+          updateAppState={this.props.updateOverallState}
+        />
       </div>
     );
   }

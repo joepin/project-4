@@ -7,7 +7,9 @@ const ServerList = props => {
       name={server.server_name}
       url={server.server_url}
       key={i}
-    />);
+      click={() => props.updateAppState('activeServer', server)}
+    />
+  );
   return (
     <div>
       <h2>Your Servers:</h2>

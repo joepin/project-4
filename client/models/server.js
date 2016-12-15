@@ -4,7 +4,7 @@ const uuid = require('uuid');
 
 function getUserServers(req, res, next) {
   const userID = res.userData.user_id;
-  const query = `SELECT * FROM server WHERE user_id = $1;`;
+  const query = `SELECT * FROM server INNER JOIN server_uuid_url ON server.server_uuid = server_uuid_url.server_uuid WHERE user_id = $1;`;
   const values = [userID];
 
   db.any(query, values)
@@ -105,6 +105,32 @@ function unregisterServer(req, res, next) {
   next();
 }
 
+function saveServerURL(req, res, next) {
+  const uuid = req.query.uuid;
+  const url = req.query.url;
+
+  const query = `INSERT INTO server_uuid_url (server_uuid, server_url) VALUES($1, $2);`;
+  const values = [
+    uuid,
+    url,
+  ];
+
+  db.none(query, values)
+  .then(() => res.data = 'Success')
+  .then(() => next())
+  .catch(err => next(err));
+}
+
+function deleteServerURL(req, res, next) {
+  const uuid = req.query.uuid;
+  const query = `DELETE FROM server_uuid_url WHERE server_uuid = $1;`;
+  const values = [uuid];
+  db.none(query, values)
+  .then(() => res.data = 'Success')
+  .then(() => next())
+  .catch(err => next(err));
+}
+
 module.exports = {
   getUserServers,
   getUserData,
@@ -114,4 +140,6 @@ module.exports = {
   prepareResponse,
   createUserServer,
   unregisterServer,
+  saveServerURL,
+  deleteServerURL,
 }
