@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import styles from './Login.css';
+import styles from './Signup.css';
 
-class Login extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
+      firstName: '',
+      lastName: '',
     };
   }
 
@@ -17,8 +19,8 @@ class Login extends Component {
     });
   }
 
-  login() {
-    fetch('/api/v1/users/login', {
+  signup() {
+    fetch('/api/v1/users/', {
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
@@ -26,6 +28,8 @@ class Login extends Component {
       body: JSON.stringify({
         email: this.state.email,
         password: this.state.password,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
       }),
     })
     .then(r => r.json())
@@ -43,17 +47,25 @@ class Login extends Component {
     return (
       <div className={styles['main-container']}>
         <div className={styles['input-container']}>
-          <label htmlFor="email">Email: </label>
+          <label htmlFor="firstName">First Name:</label>
+          <input type="text" value={this.state.firstName} onChange={(e) => this.updateState('firstName', e.target.value)} />
+        </div>
+        <div className={styles['input-container']}>
+          <label htmlFor="lastName">Last Name:</label>
+          <input type="text" value={this.state.lastName} onChange={(e) => this.updateState('lastName', e.target.value)} />
+        </div>
+        <div className={styles['input-container']}>
+          <label htmlFor="email">Email:</label>
           <input type="text" value={this.state.email} onChange={(e) => this.updateState('email', e.target.value)} />
         </div>
         <div className={styles['input-container']}>
-          <label htmlFor="password">Password: </label>
+          <label htmlFor="password">Password:</label>
           <input type="password" value={this.state.password} onChange={(e) => this.updateState('password', e.target.value)} />
         </div>
-        <button className={styles['submit-button']} onClick={() => this.login()}>Login!</button>
+        <button className={styles['submit-button']} onClick={() => this.signup()}>Sign Up!</button>
       </div>
     );
   }
 }
 
-export default Login;
+export default Signup;

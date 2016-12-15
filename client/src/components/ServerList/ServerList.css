@@ -1,0 +1,10 @@
+.server-link {
+  color: black;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.server-link:visited {
+  color: black;
+  text-decoration: none;
+}

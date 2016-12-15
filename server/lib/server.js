@@ -11,8 +11,8 @@ let ngrokURL = null;
 function buildFileList(filesPath) {
   const pathsArray = fs.walkSync(filesPath);
   let fileHTML = [];
-  const exts = /^.*\.(mp3|MP3|wav|WAV|mp4|MP4|mov|MOV|mpg|MPG|mpeg|MPEG|avi|AVI)$/;
-  const relativePaths = pathsArray.filter((fPath) => exts.test(fPath)).map((fPath) => fPath.substr((filesPath.length - path.basename(fPath, path.extname(fPath)).length)));
+  const exts = /^.*\.(mp3|MP3|wav|WAV|mp4|MP4)$/;
+  const relativePaths = pathsArray.filter((fPath) => exts.test(fPath)).map((fPath) => fPath.substr((fPath.length - (fPath.length - filesPath.length))));
   const pathsAsJSON = relativePaths.map((relPath, i) => {
     const name = path.basename(relPath, path.extname(relPath))
     return {
@@ -40,6 +40,7 @@ function startServer(cons, serverPort, filesPath) {
   const port = serverPort;
 
   const stream = require('./stream.js');
+  stream.setFilePath(filesPath);
 
   app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

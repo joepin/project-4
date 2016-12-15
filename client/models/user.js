@@ -73,20 +73,11 @@ function createUser(req, res, next) {
   .then((data) => {
     // ...then get a token for the user and send it back to the caller
     auth.getUserToken(data)
-      .then((token) => res.data = token)
+      .then((token) => res.token = token)
       .then(() => next())
       .catch(err => next(err));
   })
   /* end of db then; catch db errors now */
-  .catch(err => next(err));
-}
-
-// DEPRECATED
-function getUserData (req, res, next) {
-  const token = req.headers['token_authorization'] || req.body.token || req.params.token || req.query.token;
-  auth.getUserData(token)
-  .then((user) => res.data = user.data)
-  .then(() => next())
   .catch(err => next(err));
 }
 
@@ -110,9 +101,20 @@ function prepUserData(req, res, next) {
   }
 }
 
+function getUserServers(req, res, next) {
+  const userID = res.userData.user_id;
+  const query = `SELECT * FROM server INNER JOIN server_uuid_url ON server.server_uuid = server_uuid_url.server_uuid WHERE user_id = $1;`;
+  const values = [userID];
+
+  db.any(query, values)
+  .then(data => res.data = data)
+  .then(() => next())
+  .catch(err => next(err));
+}
+
 module.exports = {
   login,
   createUser,
-  getUserData,
   prepUserData,
+  getUserServers,
 }

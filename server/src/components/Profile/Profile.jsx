@@ -4,7 +4,6 @@ import { browserHistory, Link } from 'react-router';
 class Profile extends Component {
   constructor(props) {
     super(props);
-    console.log('profile userdata:', this.props.userData)
     this.state = {
       userData: this.props.userData || {},
     };

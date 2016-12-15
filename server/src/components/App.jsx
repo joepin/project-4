@@ -19,9 +19,9 @@ class App extends Component {
     const mac = settings.getSync('serverMac');
     const name = settings.getSync('serverName');
     const user = settings.getSync('userData');
-    console.log('serverUUID:', uuid);
-    console.log('serverMac:', mac);
-    console.log('user:', user);
+    // console.log('serverUUID:', uuid);
+    // console.log('serverMac:', mac);
+    // console.log('user:', user);
     this.setState({
       serverUUID: uuid,
       serverMac: mac,
@@ -32,18 +32,7 @@ class App extends Component {
     browserHistory.push(uuid ? '/profile' : '/register');
   }
 
-  // componentDidMount() {
-  //   const remote = require('electron').remote;
-  //   const settings = remote.require('electron-settings');
-  //   // const { getMac } = remote.require('getmac');
-  //   // getMac((err, mac) => console.log('getMac', err ? err : mac));
-  // }
-
-  componentWillUnmount() {
-  }
-
   updateState(key, value) {
-    // console.log('key:', key, '\n', 'value:', value);
     this.setState({
       [key]: value,
     });

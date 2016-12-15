@@ -2,17 +2,6 @@ const db = require('../lib/dbConnect.js');
 const auth = require('../lib/auth.js');
 const uuid = require('uuid');
 
-function getUserServers(req, res, next) {
-  const userID = res.userData.user_id;
-  const query = `SELECT * FROM server INNER JOIN server_uuid_url ON server.server_uuid = server_uuid_url.server_uuid WHERE user_id = $1;`;
-  const values = [userID];
-
-  db.any(query, values)
-  .then(data => res.data = data)
-  .then(() => next())
-  .catch(err => next(err));
-}
-
 function getUserData(req, res, next) {
   auth.getUserData(res.token)
   .then(user => res.userData = user.data)
@@ -47,12 +36,10 @@ function generateUUID(req, res, next) {
   const together = macArray.concat(idArray);
   const random = together.map((value) => parseInt('0x' + value));
   res.generatedUUID = uuid.v4({ random: random });
-  console.log('generated:', res.generatedUUID);
   next();
 }
 
 function registerServer(req, res, next) {
-  console.log(req.body);
   const userID = res.userData.user_id;
   const serverName = req.body.name;
   const serverMac = res.normalizedMac;
@@ -66,8 +53,6 @@ function registerServer(req, res, next) {
     userID,
   ];
 
-  console.log('values:\n', values)
-
   db.one(query, values)
   .then(server => res.insertedServer = server)
   .then(() => next())
@@ -79,29 +64,6 @@ function prepareResponse(req, res, next) {
     user_data: res.userData,
     server_data: res.insertedServer,
   }
-  next();
-}
-
-function createUserServer(req, res, next) {
-  const name = req.body.name;
-  const url = req.body.url || null;
-  const userID = res.userData.user_id;
-
-  const query = `INSERT INTO server (server_name, server_url, user_id) VALUES ($1, $2, $3) RETURNING *;`;
-  const values = [
-    name,
-    url,
-    userID,
-  ];
-
-  db.one(query, values)
-  .then((server) => res.data = server)
-  .then(() => next())
-  .catch(err => next(err));
-}
-
-function unregisterServer(req, res, next) {
-  res.data = 'this method is under construction';
   next();
 }
 
@@ -132,14 +94,11 @@ function deleteServerURL(req, res, next) {
 }
 
 module.exports = {
-  getUserServers,
   getUserData,
   checkIfServerIsRegistered,
   generateUUID,
   registerServer,
   prepareResponse,
-  createUserServer,
-  unregisterServer,
   saveServerURL,
   deleteServerURL,
 }

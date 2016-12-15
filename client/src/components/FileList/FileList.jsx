@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import File from './File/File.jsx';
-// import styles from './FileList.css';
+import styles from './FileList.css';
 
 class FileList extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class FileList extends Component {
       url: this.props.activeServer.server_url,
       audioSrc: '',
       videoSrc: '',
+      src: '',
     }
   }
 
@@ -33,8 +35,8 @@ class FileList extends Component {
     const audioExts = /^.*\.(mp3|MP3|wav|WAV)$/;
     const videoExts = /^.*\.(mp4|MP4|mov|MOV|mpg|MPG|mpeg|MPEG|avi|AVI)$/;
     const fullPath = `${this.state.url}/stream?path=${path}`;
-    if (audioExts.test(extension)) this.setState({ 'audioSrc': fullPath });
-    if (videoExts.test(extension)) this.setState({ 'videoSrc': fullPath });
+    if (audioExts.test(extension)) this.setState({ 'audioSrc': fullPath, src: fullPath });
+    if (videoExts.test(extension)) this.setState({ 'videoSrc': fullPath, src: fullPath });
   }
 
   render() {
@@ -48,11 +50,18 @@ class FileList extends Component {
       />
     );
     return(
-      <div>
-        <h2>Files List</h2>
-        {filesComps}
-        <audio controls src={this.state.audioSrc}></audio>
-        <video controls src={this.state.videoSrc}></video>
+      <div className={styles['wrapper']}>
+        <nav className={styles['nav']}>
+          <h2>List of Files on {this.props.activeServer.server_name}</h2>
+          <Link to='/profile' className={styles['profile']}>Profile</Link>
+        </nav>
+        <div className={styles['main-container']}>
+          <div className={styles['files-list']}>
+            {filesComps}
+          </div>
+          <video className={styles['player']} autoPlay controls src={this.state.videoSrc}></video>
+          <audio className={styles['player']} autoPlay controls src={this.state.audioSrc}></audio>
+        </div>
       </div>
     )
   }

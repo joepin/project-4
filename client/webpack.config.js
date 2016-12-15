@@ -38,7 +38,14 @@ module.exports = {
     include: path.join(__dirname, 'src'),
     loaders: [
       {
+        test: /\.global.css$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+      },
+      {
         test: /\.css$/,
+        exclude: [
+          path.resolve(__dirname, 'src/components/styles.global.css'),
+        ],
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
       },
       {

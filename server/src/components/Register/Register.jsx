@@ -30,7 +30,6 @@ class Register extends Component {
       name: this.state.name,
       mac: this.props.serverMac,
     };
-    console.log(bodyObj)
 
     fetch('http://localhost:3000/api/v1/servers/register', {
       headers: new Headers({
@@ -41,7 +40,6 @@ class Register extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      console.log(data);
       const remote = require('electron').remote;
       const settings = remote.require('electron-settings');
 
