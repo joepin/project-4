@@ -17,6 +17,8 @@ CREATE TABLE "user" (
   joined_date DATE NOT NULL DEFAULT now()
 );
 
+ALTER SEQUENCE user_user_id_seq RESTART WITH 1000 START WITH 1000;
+
 CREATE TABLE server (
   server_id SERIAL UNIQUE PRIMARY KEY,
   server_name VARCHAR(255) NOT NULL,
@@ -25,8 +27,6 @@ CREATE TABLE server (
   created_date DATE NOT NULL DEFAULT now(),
   user_id INT NOT NULL
 );
-
-ALTER SEQUENCE user_user_id_seq RESTART WITH 1000 START WITH 1000;
 
 CREATE TABLE server_uuid_url (
   server_uuid VARCHAR(36) PRIMARY KEY NOT NULL,

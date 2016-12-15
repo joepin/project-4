@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { browserHistory, Link } from 'react-router';
 import ServerList from '../ServerList/ServerList.jsx';
+import styles from './Profile.css';
 
 class Profile extends Component {
   constructor(props) {
@@ -39,18 +40,23 @@ class Profile extends Component {
 
   render() {
     return(
-      <div>
-        <button onClick={() => this.logout()}>Log Out</button>
-        <h3>Welcome, {this.state.userData.fname || ''} {this.state.userData.lname || ''}!</h3>
-        <p>Your email: {this.state.userData.email || ''}</p>
-        <Link to='/files'>See files</Link>
+      <div className={styles['wrapper']}>
+
+      <nav className={styles['nav-links']}>
+        <p className={styles['email']}>{this.state.userData.email || ''}</p>
+        <p className={styles['logout']} onClick={() => this.logout()}>Log Out</p>
+      </nav>
+      <div className={styles['main-container']}>
+        <h3 className={styles['welcome-message']}>Welcome, {this.state.userData.fname || ''} {this.state.userData.lname || ''}!</h3>
         <ServerList
           servers={this.props.servers}
           updateAppState={this.props.updateOverallState}
         />
+      </div>
       </div>
     );
   }
 }
 
 export default Profile;
+        // <Link to='/files' className={styles['link']}>See files</Link>

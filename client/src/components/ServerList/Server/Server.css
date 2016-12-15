@@ -1,4 +1,15 @@
 .server-container {
   border: 1px solid black;
   background: #cbf442;
+  padding: 1vh 1vw;
+}
+
+.name {
+  display: inline-block;
+}
+
+.url {
+  display: inline-block;
+  font-style: italic;
+  float: right;
 }

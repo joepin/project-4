@@ -1,0 +1,51 @@
+.wrapper {
+  height: 75%;
+  width: 75%;
+  background: lightblue;
+}
+
+.main-container {
+  height: 86%;
+  width: 90%;
+  /*display: flex;*/
+  /*flex-flow: row wrap;*/
+  /*justify-content: center;*/
+  margin: 0 5%;
+}
+
+.nav-links {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+  padding: 2% 2%;
+}
+
+.email {
+  text-align: center;
+  display: inline;
+  padding: 3vh 3vw;
+  font-size: calc(1vh + 1vw);
+}
+
+.logout {
+  border: none;
+  padding: 3vh 3vw;
+  font-size: calc(1vh + 1vw);
+  /*color: blue;*/
+  cursor: pointer;
+  border: 1px solid white;
+  background: #32f2e2;
+}
+
+.welcome-message {
+  text-align: center;
+  width: 100%;
+}
+
+.link {
+  text-align: center;
+  width: 100%;
+}
+
