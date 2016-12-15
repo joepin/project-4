@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
+import styles from './Signup.css';
 
 class Signup extends Component {
   constructor(props) {
@@ -44,16 +45,24 @@ class Signup extends Component {
 
   render() {
     return (
-      <div>
-        <label htmlFor="firstName">First Name:</label>
-        <input type="text" value={this.state.firstName} onChange={(e) => this.updateState('firstName', e.target.value)} />
-        <label htmlFor="lastName">Last Name:</label>
-        <input type="text" value={this.state.lastName} onChange={(e) => this.updateState('lastName', e.target.value)} />
-        <label htmlFor="email">Email:</label>
-        <input type="text" value={this.state.email} onChange={(e) => this.updateState('email', e.target.value)} />
-        <label htmlFor="password">Password:</label>
-        <input type="password" value={this.state.password} onChange={(e) => this.updateState('password', e.target.value)} />
-        <button onClick={() => this.signup()}>Sign Up!</button>
+      <div className={styles['main-container']}>
+        <div className={styles['input-container']}>
+          <label htmlFor="firstName">First Name:</label>
+          <input type="text" value={this.state.firstName} onChange={(e) => this.updateState('firstName', e.target.value)} />
+        </div>
+        <div className={styles['input-container']}>
+          <label htmlFor="lastName">Last Name:</label>
+          <input type="text" value={this.state.lastName} onChange={(e) => this.updateState('lastName', e.target.value)} />
+        </div>
+        <div className={styles['input-container']}>
+          <label htmlFor="email">Email:</label>
+          <input type="text" value={this.state.email} onChange={(e) => this.updateState('email', e.target.value)} />
+        </div>
+        <div className={styles['input-container']}>
+          <label htmlFor="password">Password:</label>
+          <input type="password" value={this.state.password} onChange={(e) => this.updateState('password', e.target.value)} />
+        </div>
+        <button className={styles['submit-button']} onClick={() => this.signup()}>Sign Up!</button>
       </div>
     );
   }

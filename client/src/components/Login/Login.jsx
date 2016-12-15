@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
+import styles from './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -40,12 +41,16 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input type="text" value={this.state.email} onChange={(e) => this.updateState('email', e.target.value)} />
-        <label htmlFor="password">Password:</label>
-        <input type="password" value={this.state.password} onChange={(e) => this.updateState('password', e.target.value)} />
-        <button onClick={() => this.login()}>Login!</button>
+      <div className={styles['main-container']}>
+        <div className={styles['input-container']}>
+          <label htmlFor="email">Email: </label>
+          <input type="text" value={this.state.email} onChange={(e) => this.updateState('email', e.target.value)} />
+        </div>
+        <div className={styles['input-container']}>
+          <label htmlFor="password">Password: </label>
+          <input type="password" value={this.state.password} onChange={(e) => this.updateState('password', e.target.value)} />
+        </div>
+        <button className={styles['submit-button']} onClick={() => this.login()}>Login!</button>
       </div>
     );
   }

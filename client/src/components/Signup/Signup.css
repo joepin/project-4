@@ -1,7 +1,7 @@
 .main-container {
   height: 75%;
   width: 75%;
-  background: green;
+  background: yellow;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
