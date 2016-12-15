@@ -16,5 +16,11 @@
     "tunnel"
   ],
   "author": "Joey Pinhas",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": "7.0.0",
+    "npm": "4.0.3"
+  },
+  "dependencies": {
+  }
 }
