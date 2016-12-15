@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import Login from './Login/Login.jsx';
+import './styles.global.css';
 
 class App extends Component {
   constructor(props) {
