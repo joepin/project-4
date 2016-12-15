@@ -4,7 +4,7 @@ const uuid = require('uuid');
 
 function getUserServers(req, res, next) {
   const userID = res.userData.user_id;
-  const query = `SELECT * FROM server WHERE user_id = $1;`;
+  const query = `SELECT * FROM server INNER JOIN server_uuid_url ON server.server_uuid = server_uuid_url.server_uuid WHERE user_id = $1;`;
   const values = [userID];
 
   db.any(query, values)

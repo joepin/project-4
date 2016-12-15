@@ -6,14 +6,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
       userData: {},
       servers: [],
     };
   }
 
   componentWillMount() {
-    browserHistory.push(this.state.isLoggedIn ? '/profile' : '/login');
+    const token = localStorage.getItem('userAuthToken');
+    const startTime = localStorage.getItem('tokenReceived');
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    this.updateState('userData', userData);
+    browserHistory.push((token && (Date.now() - startTime <= 14400000)) ? '/profile' : '/login');
   }
 
   updateState(key, value) {
@@ -29,7 +32,6 @@ class App extends Component {
       <div>
         {this.props.children && React.cloneElement(this.props.children, {
           updateOverallState: (k, v) => this.updateState(k, v),
-          isLoggedIn: this.state.isLoggedIn,
           userData: this.state.userData,
           servers: this.state.servers,
         })
