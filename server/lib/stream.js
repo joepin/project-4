@@ -16,9 +16,10 @@ function setFilePath(fp) {
 
 function checkFile(req, res, next) {
   const filePath = decodeURIComponent(req.query.path);
+  console.log('filePath', filePath)
   if (!filePath) next(new Error('Please specify a file path.'));
   const fullPath = path.resolve(FILE_PATH, `${filePath}`);
-  const final = fullPath.replace(' ', '');
+  const final = fullPath.replace(/^[ \r\n\t]+|[ \r\n\t]+$/, '');
   console.log('final path:', final);
   res.fullPath = final;
   fs.existsSync(final) ? next() : next(new Error('File does not exist.'));
