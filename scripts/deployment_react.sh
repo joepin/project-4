@@ -19,3 +19,5 @@ webpack -p
 
 # Remove the DEV version of node modules
 rm -rf node_modules
+
+npm i --only=production --ignore-scripts
