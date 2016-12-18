@@ -28,6 +28,7 @@ class Home extends Component {
     return (
       <div className={styles['main-container']}>
         <h1 className={styles['main-title']}>Welcome to cloudMe!</h1>
+        <a href="https://app.box.com/s/5e8o2r8d0xd47vuxv7dq3gef81gr4y8b">Download the macOS server side app</a>
         <Link to='/login'>Login</Link>
         <Link to='/signup'>Sign Up</Link>
       </div>
